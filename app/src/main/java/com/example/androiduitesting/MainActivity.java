@@ -2,8 +2,10 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     // Declare the variables so that you will be able to reference it later.
@@ -40,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
 
         cityList.setAdapter(cityAdapter);
+
+        cityList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                String selectedCity = cityAdapter.getItem(position);
+                Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+                intent.putExtra(ShowActivity.CityName, selectedCity);
+                startActivity(intent);
+            }
+            });
+
 
         final Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
